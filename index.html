@@ -7,6 +7,7 @@
     <title>Pernell's Hangman!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="javascript" href="assets/javascript/game.js"
 </head>
 
 <body>
@@ -14,11 +15,11 @@
     <center><h1>The Psychic Game!</h1></center><hr>
     <div>
 
-        <button onclick="startPlaying()">
+        <button onclick="startPlaying();">
             <p id="start">Start Game</p>
         </button>
         <!-- Starts the game as soon as you press the button -->
-        <button onclick="stopPlaying()">
+        <button onclick="stopPlaying();">
             <p id="stop">Stop Playing</p>
         </button>
         
@@ -30,7 +31,6 @@
         <p id="wins-text"></p>
         <p id="losses-text"></p>
         <p id="tries-text"></p></center>
-
     </div>
 
     <script>
@@ -43,7 +43,7 @@
         var tries = 0;
 
         // Randomly chooses a choice from the options array. This is the Computer's guess.
-        var computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        
 
         var userGuessesText = document.getElementById("userguesses-text");
         var computerChoiceText = document.getElementById("computerchoice-text"); //will change this to be masked soon as I get it to work
@@ -52,21 +52,18 @@
         var triesText = document.getElementById("tries-text");
 
         function startPlaying() {
-
+            var computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+            
             var x = document.getElementById("start")
             userGuessesText.textContent = "You Chose: " + userGuesses;
             computerChoiceText.textContent = "The computer chose: " + computerChoice;
-            console.log(computerChoice)
             winsText.textContent = "Your Wins: " + wins;
             lossesText.textContent = "Your Losses: " + losses;
             triesText.textContent = "Amount of Tries: " + tries;
 
             document.onkeyup = function (event) {
-                console.log("started")
                
-                var userGuess = event.key;
-            
-                
+                var userGuess = event.key;           
 
                 if (userGuess === computerChoice) {
                     wins++
@@ -84,6 +81,7 @@
                     tries++;
                     triesText.textContent = "Amount of Tries: " + tries;
                     userGuessesText.textContent += userGuess + ", ";
+
                 }
                 if (tries === 13) {
                     losses++;
@@ -95,7 +93,7 @@
                     userGuessesText.textContent = "You Chose: " + userGuesses;
 
                     var computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)]
-                    computerChoiceText.textContent = "The computer chose: " + computerChoice;
+                    computerChoiceText.textContent = "The Computer Chose: " + computerChoice;
                 }
             }
         }
