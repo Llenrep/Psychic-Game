@@ -1,0 +1,108 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Pernell's Hangman!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <center><h1>The Psychic Game!</h1></center><hr>
+    <div>
+
+        <button onclick="startPlaying()">
+            <p id="start">Start Game</p>
+        </button>
+        <!-- Starts the game as soon as you press the button -->
+        <button onclick="stopPlaying()">
+            <p id="stop">Stop Playing</p>
+        </button>
+        
+        <center><p><ins>The Point of this game is to try and guess the letter that the computer is thinking of!</ins></p></center>
+        <center><p><ins>Keep in mind you only have 13 tries.. Make the best of it!</ins></p></center><hr>
+        
+        <center><p id="userguesses-text"></p>
+        <p id="computerchoice-text"></p>
+        <p id="wins-text"></p>
+        <p id="losses-text"></p>
+        <p id="tries-text"></p></center>
+
+    </div>
+
+    <script>
+
+        var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+        var userGuesses = "";
+
+        var wins = 0;
+        var losses = 0;
+        var tries = 0;
+
+        // Randomly chooses a choice from the options array. This is the Computer's guess.
+        var computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+        var userGuessesText = document.getElementById("userguesses-text");
+        var computerChoiceText = document.getElementById("computerchoice-text"); //will change this to be masked soon as I get it to work
+        var winsText = document.getElementById("wins-text");
+        var lossesText = document.getElementById("losses-text");
+        var triesText = document.getElementById("tries-text");
+
+        function startPlaying() {
+
+            var x = document.getElementById("start")
+            userGuessesText.textContent = "You Chose: " + userGuesses;
+            computerChoiceText.textContent = "The computer chose: " + computerChoice;
+            console.log(computerChoice)
+            winsText.textContent = "Your Wins: " + wins;
+            lossesText.textContent = "Your Losses: " + losses;
+            triesText.textContent = "Amount of Tries: " + tries;
+
+            document.onkeyup = function (event) {
+                console.log("started")
+               
+                var userGuess = event.key;
+            
+                
+
+                if (userGuess === computerChoice) {
+                    wins++
+                    winsText.textContent = "Your Wins: " + wins;
+                    alert("You Guessed Right!");
+                    tries = 0;
+                    triesText.textContent = "Amount of Tries: " + tries;
+                    var userGuesses = "";
+                    userGuessesText.textContent = "You Chose: " + userGuesses;
+
+                    var computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)]
+                    computerChoiceText.textContent = "The computer chose: " + computerChoice;
+                } 
+                if (userGuess !== computerChoice) {
+                    tries++;
+                    triesText.textContent = "Amount of Tries: " + tries;
+                    userGuessesText.textContent += userGuess + ", ";
+                }
+                if (tries === 13) {
+                    losses++;
+                    lossesText.textContent = "Your Losses: " + losses;
+                    alert("You Lose");
+                    tries = 0;
+                    triesText.textContent = "Amount of Tries: " + tries;
+                    var userGuesses = "";
+                    userGuessesText.textContent = "You Chose: " + userGuesses;
+
+                    var computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)]
+                    computerChoiceText.textContent = "The computer chose: " + computerChoice;
+                }
+            }
+        }
+        function stopPlaying() {
+            document.write("Okay, Good bye! Refresh page to play again!")
+        }
+    </script>
+</body>
+
+</html>
